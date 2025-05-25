@@ -1,0 +1,67 @@
+# CAMEO Configuration File
+
+# LLM Provider Settings
+llm:
+  default_provider: "openrouter"
+  providers:
+    openrouter:
+      model: "meta-llama/llama-3.3-70b-instruct"
+      api_key: null  # Set via environment variable OPENROUTER_API_KEY
+      temperature: 0.1
+      max_tokens: 2000
+      timeout: 30
+    openai:
+      model: "gpt-4o-mini"
+      api_key: null  # Set via environment variable OPENAI_API_KEY
+      temperature: 0.1
+      max_tokens: 2000
+      timeout: 30
+
+# Annotation Settings
+annotation:
+  max_candidates: 10
+  confidence_threshold: 0.5
+  default_database_mapping:  # the default database to use for each entity type
+    chemical: "chebi"
+    gene: "ncbigene"
+    protein: "uniprot"
+
+# Database Settings (Phase 2)
+databases:
+  cache_directory: "./data"
+  auto_update: false
+  
+  # Database-specific settings for future implementation
+  chebi:
+    cache_format: "pickle"
+    include_synonyms: true
+    include_formulas: true
+  
+  ncbigene:
+    cache_format: "sqlite"
+    taxonomies: ["9606", "511145", "10090"]  # human, e.coli, mouse
+    include_orthologs: true
+  
+  rhea:
+    cache_format: "pickle"
+    include_ec_numbers: true
+  
+  uniprot:
+    cache_format: "sqlite"
+    organisms: ["human", "ecoli", "mouse"]
+    include_go_annotations: true
+
+# Performance Settings
+performance:
+  cache_llm_responses: true
+  cache_ttl_hours: 24
+  max_concurrent_requests: 5
+  request_delay_ms: 100
+
+# Logging Settings
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "cameo.log"
+  max_file_size_mb: 10
+  backup_count: 3 

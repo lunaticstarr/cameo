@@ -1,0 +1,18 @@
+Model: BIOMD0000000190
+LLM: meta-llama/llama-3.3-70b-instruct:free
+Timestamp: 2025-05-25 16:39:59
+
+Synonyms:
+SAM: ['S-adenosylmethionine', 'AdoMet', 'SAMe']
+A: ['decarboxylated S-adenosylmethionine', 'S-adenosylmethioninamine', 'dcAdoMet']
+P: ['putrescine', '1,4-diaminobutane', 'butane-1,4-diamine']
+S: ['spermine', "N,N'-bis(3-aminopropyl)propane-1,4-diamine", '1,12-diamino-4,9-diazadodecane']
+D: ['spermidine', 'N-(3-aminopropyl)propane-1,4-diamine', '1,8-diamino-4-azaoctane']
+aS: ['N1-acetylspermine', 'N-acetylspermine', 'N1-acetyl-1,12-diamino-4,9-diazadodecane']
+aD: ['N1-acetylspermidine', 'N-acetylspermidine', 'N1-acetyl-1,8-diamino-4-azaoctane']
+Met: ['methionine', 'L-methionine', '2-amino-4-(methylthio)butanoic acid']
+ORN: ['ornithine', 'L-ornithine', '2,5-diaminopentanoic acid']
+AcCoA: ['acetyl-CoA', 'acetyl coenzyme A', 'S-acetyl-CoA']
+CoA: ['coenzyme A', 'CoA', "3'-phosphoadenosine-5'-diphospho-CoA"]
+
+Reason: The species names were matched to their standardized names based on the provided display names and common biochemical knowledge. SAM, A, P, S, D, aS, aD, Met, ORN, and AcCoA were matched directly to their display names or common synonyms. CoA was matched to its common name, coenzyme A. The reactions and model context were used to confirm the identities of the species, but were not necessary for the matching process.

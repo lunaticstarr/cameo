@@ -1,0 +1,12 @@
+file,type,id,display_name,annotation,annotation_label,match_score,existing,update_annotation
+BIOMD0000000190.xml,chemical,SAM,S-adenosyl-L-methionine,CHEBI:15414,S-adenosyl-L-methionine,1.0,1,keep
+BIOMD0000000190.xml,chemical,SAM,S-adenosyl-L-methionine,CHEBI:33442,(S)-S-adenosyl-L-methionine,0.3333333333333333,0,ignore
+BIOMD0000000190.xml,chemical,SAM,S-adenosyl-L-methionine,CHEBI:67040,S-adenosyl-L-methioninate,0.6666666666666666,0,ignore
+BIOMD0000000190.xml,chemical,A,S-adenosylmethioninamine,CHEBI:15625,S-adenosylmethioninamine,1.0,1,keep
+BIOMD0000000190.xml,chemical,P,Putrescine,CHEBI:17148,putrescine,1.0,1,keep
+BIOMD0000000190.xml,chemical,P,Putrescine,CHEBI:326268,"1,4-butanediammonium",0.3333333333333333,0,ignore
+BIOMD0000000190.xml,chemical,S,Spermine,CHEBI:15746,spermine,0.6666666666666666,1,keep
+BIOMD0000000190.xml,chemical,S,Spermine,CHEBI:45725,spermine(4+),0.3333333333333333,0,ignore
+BIOMD0000000190.xml,chemical,S,Spermine,CHEBI:83547,N(4)-aminopropylspermidine,0.3333333333333333,0,ignore
+BIOMD0000000190.xml,chemical,D,Spermidine,CHEBI:16610,spermidine,1.0,1,keep
+BIOMD0000000190.xml,chemical,D,Spermidine,CHEBI:57834,spermidine(3+),0.3333333333333333,0,ignore

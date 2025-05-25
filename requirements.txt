@@ -1,0 +1,68 @@
+# Core dependencies
+python>=3.8
+python-libsbml>=5.19.0
+pandas>=1.3.0
+numpy>=1.21.0
+requests>=2.25.0
+pyyaml>=6.0
+
+# Model parsing and context extraction
+antimony>=2.12.0
+
+# LLM integration
+openai>=1.0.0
+
+# Data processing
+biopython>=1.79
+lxml>=4.6.0
+scipy>=1.7.0
+
+# Caching and storage
+compress-pickle>=2.1.0
+
+# UI (for later phases)
+dash>=2.14.0
+plotly>=5.15.0
+dash-bootstrap-components>=1.4.0
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-mock>=3.10.0
+
+# Development tools
+black>=22.0.0
+flake8>=4.0.0
+mypy>=1.0.0
+
+# Optional dependencies for enhanced functionality
+# Jupyter notebook support
+jupyter>=1.0.0
+notebook>=6.4.0
+ipywidgets>=7.6.0
+
+# Visualization
+matplotlib>=3.5.0
+seaborn>=0.11.0
+plotly>=5.0.0
+
+# Progress bars
+tqdm>=4.62.0
+
+# File handling
+pathlib2>=2.3.0
+
+# Optional: For future database integration
+# sqlite3 is built-in to Python
+# For enhanced database features:
+# sqlalchemy>=1.4.0
+# compress-pickle>=2.1.0
+
+# Optional: For future RAG integration
+# chromadb>=0.4.0
+# sentence-transformers>=2.2.0
+# langchain>=0.1.0
+
+# Optional: Web UI (future)
+# dash>=2.14.0
+# dash-bootstrap-components>=1.4.0 
