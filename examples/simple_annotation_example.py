@@ -2,26 +2,28 @@
 """
 Simple CAMEO Annotation Example
 
-Demonstrates the streamlined core interface for annotating a single model.
+Demonstrates the streamlined core interface for annotating models.
+Shows both annotation (for models without annotations) and curation (for models with existing annotations).
 """
 
 import os
 import sys
 from pathlib import Path
+import pandas as pd
 
 # Add the project root to the Python path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-# Import the main CAMEO interface
-from cameo.core import annotate_single_model, print_results
+# Import the main CAMEO interfaces
+from cameo.core import annotate_model, curate_model, print_results
 
 def main():
     """
-    Simple example of using CAMEO to annotate a model.
+    Simple example of using CAMEO to annotate and curate models.
     """
-    print("CAMEO Simple Annotation Example")
-    print("=" * 40)
+    print("CAMEO Simple Annotation & Curation Example")
+    print("=" * 50)
     
     # Configuration
     model_file = "tests/test_models/BIOMD0000000190.xml"
@@ -44,8 +46,11 @@ def main():
     print()
     
     try:
-        # This is the main function call - everything else is handled internally
-        recommendations_df, metrics = annotate_single_model(
+        # Example 1: Curation workflow (for models with existing annotations)
+        print("EXAMPLE 1: Curation workflow (models with existing annotations)")
+        print("-" * 60)
+        
+        recommendations_df, metrics = curate_model(
             model_file=model_file,
             llm_model=llm_model,
             max_entities=5,  # Limit for demo
@@ -53,38 +58,71 @@ def main():
             database="chebi"
         )
         
-        # Display results
+        # Display curation results
         if not recommendations_df.empty:
-            print("Annotation Results:")
-            print("-" * 40)
-            print(f"Total entities: {metrics['total_entities']}")
+            print("Curation Results:")
+            print(f"Total entities with existing annotations: {metrics['total_entities']}")
             print(f"Entities with predictions: {metrics['entities_with_predictions']}")
-            print(f"Annotation rate: {metrics['annotation_rate']:.1%}")
             print(f"Accuracy: {metrics['accuracy']:.1%}")
             print(f"Total time: {metrics['total_time']:.2f}s")
-            print(f"LLM time: {metrics['llm_time']:.2f}s")
-            print(f"Search time: {metrics['search_time']:.2f}s")
             print()
             
             # Show sample recommendations
-            print("Sample Recommendations:")
-            print("-" * 40)
-            sample_df = recommendations_df[['id', 'display_name', 'annotation', 'annotation_label', 'match_score', 'existing']].head(10)
+            print("Sample Curation Recommendations:")
+            sample_df = recommendations_df[['id', 'display_name', 'annotation', 'annotation_label', 'match_score', 'existing']].head(5)
             print(sample_df.to_string(index=False))
+            print()
+        else:
+            if 'error' in metrics:
+                print(f"Curation failed: {metrics['error']}")
+        
+        print("\n" + "="*60 + "\n")
+        
+        # Example 2: Annotation workflow (for models without existing annotations)
+        print("EXAMPLE 2: Annotation workflow (all species, regardless of existing annotations)")
+        print("-" * 80)
+        
+        recommendations_df2, metrics2 = annotate_model(
+            model_file=model_file,
+            llm_model=llm_model,
+            max_entities=5,  # Limit for demo
+            entity_type="chemical",
+            database="chebi"
+        )
+        
+        # Display annotation results
+        if not recommendations_df2.empty:
+            print("Annotation Results:")
+            print(f"Total entities in model: {metrics2['total_entities']}")
+            print(f"Entities with predictions: {metrics2['entities_with_predictions']}")
+            print(f"Annotation rate: {metrics2['annotation_rate']:.1%}")
+            
+            if not pd.isna(metrics2['accuracy']):
+                print(f"Accuracy (where existing annotations available): {metrics2['accuracy']:.1%}")
+            else:
+                print("Accuracy: N/A (no existing annotations to compare against)")
+            
+            print(f"Total time: {metrics2['total_time']:.2f}s")
+            print()
+            
+            # Show sample recommendations
+            print("Sample Annotation Recommendations:")
+            sample_df2 = recommendations_df2[['id', 'display_name', 'annotation', 'annotation_label', 'match_score', 'existing']].head(5)
+            print(sample_df2.to_string(index=False))
             print()
             
             # Save results
             output_file = "simple_annotation_results.csv"
-            recommendations_df.to_csv(output_file, index=False)
-            print(f"Full results saved to: {output_file}")
+            recommendations_df2.to_csv(output_file, index=False)
+            print(f"Full annotation results saved to: {output_file}")
             
         else:
-            print("No recommendations generated.")
-            if 'error' in metrics:
-                print(f"Error: {metrics['error']}")
+            print("No annotation recommendations generated.")
+            if 'error' in metrics2:
+                print(f"Error: {metrics2['error']}")
     
     except Exception as e:
-        print(f"Annotation failed: {e}")
+        print(f"Processing failed: {e}")
         import traceback
         traceback.print_exc()
 

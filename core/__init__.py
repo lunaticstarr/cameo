@@ -5,22 +5,32 @@ Contains the main functionality for LLM-powered model annotation.
 Streamlined interface following AMAS workflow.
 """
 
-# Main annotation interface
-from .annotation_workflow import annotate_model, annotate_single_model, print_results
+# Main annotation interface - for models with no or limited annotations
+from .annotation_workflow import annotate_model, annotate_single_model, get_all_species_ids
+
+# Main curation interface - for models with existing annotations
+from .curation_workflow import curate_model, curate_single_model
+
+# Shared functionality
+from .annotation_workflow import print_results
 
 # Individual components for advanced users
-from .model_info import find_species_with_chebi_annotations, extract_model_info, format_prompt
+from .model_info import find_species_with_chebi_annotations, extract_model_info, format_prompt, get_species_display_names
 from .llm_interface import SYSTEM_PROMPT, query_llm, parse_llm_response
 from .database_search import get_species_recommendations_direct, search_database, get_available_databases, Recommendation
 
 __all__ = [
-    # Main interface - what most users will use
-    'annotate_model',
+    # Main interfaces - what most users will use
+    'annotate_model',        # For models without existing annotations
     'annotate_single_model', 
+    'curate_model',          # For models with existing annotations
+    'curate_single_model',
     'print_results',
     
     # Individual components for advanced usage
+    'get_all_species_ids',
     'find_species_with_chebi_annotations',
+    'get_species_display_names',
     'extract_model_info',
     'format_prompt',
     'SYSTEM_PROMPT',

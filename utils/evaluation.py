@@ -15,7 +15,7 @@ from typing import Dict, List, Optional, Tuple, Any
 from pathlib import Path
 import logging
 
-from ..core.annotation_workflow import annotate_model
+from ..core.curation_workflow import curate_model
 from ..core.model_info import find_species_with_chebi_annotations
 from ..core.database_search import Recommendation
 

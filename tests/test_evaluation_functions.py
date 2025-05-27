@@ -12,7 +12,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 # Import CAMEO functions
-from cameo.core import annotate_single_model
+from cameo.core import annotate_model
 from cameo.utils import evaluate_single_model, print_evaluation_results
 
 def test_evaluation_functions():
@@ -43,10 +43,10 @@ def test_evaluation_functions():
     
     try:
         # Test 1: Core interface
-        print("\nTest 1: Core interface (annotate_single_model)")
+        print("\nTest 1: Core interface (annotate_model)")
         print("-" * 50)
         
-        recommendations_df, metrics = annotate_single_model(
+        recommendations_df, metrics = annotate_model(
             model_file=test_model_file,
             llm_model=llm_model,
             max_entities=3,  # Limit for quick test

@@ -7,9 +7,6 @@ A standalone LLM-powered tool for SBML model annotation, following the AMAS work
 ```bash
 # Install dependencies
 pip install -r requirements.txt
-
-# Test installation
-python examples/simple_annotation_example.py
 ```
 
 ## Quick Start
@@ -26,30 +23,59 @@ export OPENAI_API_KEY="your-openai-key"
 export OPENROUTER_API_KEY="your-openrouter-key"
 ```
 
-### Usage
+## Usage
+
+CAMEO provides two main workflows:
+
+### 1. Annotation Workflow (for models without existing annotations)
+
+For models with no or limited existing annotations. Annotates all species in the model:
 
 ```python
-from cameo.core import annotate_single_model
+from cameo.core import annotate_model
 
-# Single function call for complete annotation
-recommendations_df, metrics = annotate_single_model(
+# Annotate all species in a model
+recommendations_df, metrics = annotate_model(
     model_file="path/to/model.xml",
     llm_model="gpt-4o-mini"
 )
 
-print(f"Accuracy: {metrics['accuracy']:.1%}")
+print(f"Total entities: {metrics['total_entities']}")
 print(f"Annotation rate: {metrics['annotation_rate']:.1%}")
+if not pd.isna(metrics['accuracy']):
+    print(f"Accuracy: {metrics['accuracy']:.1%}")
+else:
+    print("Accuracy: N/A (no existing annotations)")
 print(f"Total time: {metrics['total_time']:.2f}s")
 
 # Save results
-recommendations_df.to_csv("results.csv", index=False)
+recommendations_df.to_csv("annotation_results.csv", index=False)
+```
+
+### 2. Curation Workflow (for models with existing annotations)
+
+For models that already have annotations. Evaluates and improves existing annotations:
+
+```python
+from cameo.core import curate_model
+
+# Curate existing annotations
+recommendations_df, metrics = curate_model(
+    model_file="path/to/model.xml",
+    llm_model="gpt-4o-mini"
+)
+
+print(f"Entities with existing annotations: {metrics['total_entities']}")
+print(f"Accuracy: {metrics['accuracy']:.1%}")
+print(f"Total time: {metrics['total_time']:.2f}s")
+
+# Save results
+recommendations_df.to_csv("curation_results.csv", index=False)
 ```
 
 ### Advanced Usage
 
 ```python
-from cameo.core import annotate_model
-
 # More control over parameters
 recommendations_df, metrics = annotate_model(
     model_file="model.xml",
@@ -59,6 +85,27 @@ recommendations_df, metrics = annotate_model(
     database="chebi"
 )
 ```
+
+### Example
+
+```python
+# Using "tests/test_models/BIOMD0000000190.xml"
+python examples/simple_annotation_example.py
+```
+
+## Workflows
+
+### Annotation Workflow
+- **Purpose**: Annotate models with no or limited existing annotations
+- **Input**: All species in the model
+- **Output**: Annotation recommendations for all species
+- **Metrics**: Accuracy is NA when no existing annotations available
+
+### Curation Workflow  
+- **Purpose**: Evaluate and improve existing annotations
+- **Input**: Only species that already have annotations
+- **Output**: Validation and improvement recommendations
+- **Metrics**: Accuracy calculated against existing annotations
 
 ## Databases
 
@@ -118,7 +165,8 @@ entity_type = "protein"   # database = "uniprot"
 cameo/
 ├── core/
 │   ├── __init__.py              # Main interface exports
-│   ├── annotation_workflow.py   # Primary workflow functions
+│   ├── annotation_workflow.py   # Annotation workflow (models without annotations)
+│   ├── curation_workflow.py     # Curation workflow (models with annotations)
 │   ├── model_info.py           # Model parsing and context
 │   ├── llm_interface.py        # LLM interaction
 │   └── database_search.py      # Database search functions
