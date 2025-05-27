@@ -23,7 +23,7 @@ _CHEBI_LABEL_DICT: Optional[Dict[str, str]] = None
 @dataclass
 class Recommendation:
     """
-    Recommendation dataclass matching AMAS test_LLM_synonyms_plain.ipynb
+    Recommendation dataclass
     """
     id: str  # ID for the species
     synonyms: list  # List of synonyms predicted by LLM
@@ -79,7 +79,6 @@ def load_chebi_label_dict() -> Dict[str, str]:
 def remove_symbols(text: str) -> str:
     """
     Remove all characters except numbers and letters.
-    Same function as in test_LLM_synonyms_plain.ipynb
     
     Args:
         text: Input text to clean
@@ -92,7 +91,6 @@ def remove_symbols(text: str) -> str:
 def get_species_recommendations_direct(species_ids: List[str], synonyms_dict) -> List[Recommendation]:
     """
     Find ChEBI recommendations by directly matching against ChEBI synonyms.
-    Exact replication of getSpeciesRecommendationsDirect from AMAS test_LLM_synonyms_plain.ipynb
     
     Parameters:
     - species_ids (list): List of species IDs to evaluate.

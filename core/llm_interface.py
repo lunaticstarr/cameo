@@ -1,8 +1,7 @@
 """
 LLM Interface for CAMEO
 
-Handles LLM interactions for annotation, following AMAS workflow.
-Consolidates functionality from llm_query.py and llm_engine.py.
+Handles LLM interactions for annotation.
 """
 
 import os

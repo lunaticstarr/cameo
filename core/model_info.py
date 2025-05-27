@@ -17,7 +17,6 @@ logger = logging.getLogger(__name__)
 def find_species_with_chebi_annotations(model_file: str) -> Dict[str, List[str]]:
     """
     Find species with existing ChEBI annotations.
-    Replicates find_species_with_chebi_annotations from AMAS test_LLM_synonyms_plain.ipynb
     
     Args:
         model_file: Path to the SBML model file
@@ -56,7 +55,6 @@ def find_species_with_chebi_annotations(model_file: str) -> Dict[str, List[str]]
 def get_species_display_names(model_file: str) -> Dict[str, str]:
     """
     Get the display names for all species in the model using libsbml.
-    Same as get_species_display_names in test_LLM_synonyms_plain.ipynb
     
     Args:
         model_file: Path to the SBML model file
@@ -74,12 +72,23 @@ def get_species_display_names(model_file: str) -> Dict[str, str]:
     names = {val.getId(): val.getName() for val in model.getListOfSpecies()}
     return names
 
+def get_all_species_ids(model_file: str) -> List[str]:
+    """
+    Get all species IDs from an SBML model.
+    
+    Args:
+        model_file: Path to SBML model file
+        
+    Returns:
+        List of species IDs
+    """
+    display_names = get_species_display_names(model_file)
+    return list(display_names.keys())
+    
 def extract_model_info(model_file: str, species_ids: List[str]) -> Dict[str, Any]:
     """
     Extract display names and reactions for the specified species from antimony.
     Also includes display names of all species involved in reactions with the specified species.
-    
-    Exact replication of extract_model_info from AMAS test_LLM_synonyms_plain.ipynb
     
     Args:
         model_file: Path to the SBML model file
@@ -195,7 +204,6 @@ def extract_model_info(model_file: str, species_ids: List[str]) -> Dict[str, Any
 def format_prompt(model_file: str, species_ids: List[str]) -> str:
     """
     Format the information for the LLM prompt.
-    Exact replication of format_prompt from AMAS test_LLM_synonyms_plain.ipynb
     
     Args:
         model_file: Path to the SBML model file

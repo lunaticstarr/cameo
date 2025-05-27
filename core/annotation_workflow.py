@@ -13,24 +13,13 @@ from pathlib import Path
 import logging
 import numpy as np
 
-from .model_info import find_species_with_chebi_annotations, extract_model_info, format_prompt, get_species_display_names
+from .model_info import find_species_with_chebi_annotations, extract_model_info, format_prompt, get_species_display_names, get_all_species_ids
 from .llm_interface import SYSTEM_PROMPT, query_llm, parse_llm_response
 from .database_search import get_species_recommendations_direct, Recommendation
 
 logger = logging.getLogger(__name__)
 
-def get_all_species_ids(model_file: str) -> List[str]:
-    """
-    Get all species IDs from an SBML model.
-    
-    Args:
-        model_file: Path to SBML model file
-        
-    Returns:
-        List of species IDs
-    """
-    display_names = get_species_display_names(model_file)
-    return list(display_names.keys())
+
 
 def annotate_single_model(model_file: str, 
                   llm_model: str = "gpt-4o-mini",

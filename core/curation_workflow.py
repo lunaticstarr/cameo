@@ -1,7 +1,7 @@
 """
 Curation Workflow for CAMEO
 
-Main interface for curating a single model following AMAS workflow.
+Main interface for curating a single model.
 Provides the primary function that users will call to get recommendation tables
 for models that already have existing annotations.
 """
@@ -24,8 +24,6 @@ def curate_single_model(model_file: str,
                   entity_type: str = "chemical",
                   database: str = "chebi") -> Tuple[pd.DataFrame, Dict[str, Any]]:
     """
-    Curate a single model following the AMAS workflow.
-    
     This is the main function users will call to get curation recommendations
     for a model that already has existing annotations.
     
@@ -263,7 +261,6 @@ def _calculate_metrics(recommendations_df: pd.DataFrame,
 def print_results(results_df: pd.DataFrame):
     """
     Print evaluation results summary.
-    Replicates print_results from AMAS test_LLM_synonyms_plain.ipynb
     
     Args:
         results_df: DataFrame with evaluation results
