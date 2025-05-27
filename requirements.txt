@@ -52,12 +52,6 @@ tqdm>=4.62.0
 # File handling
 pathlib2>=2.3.0
 
-# Optional: For future database integration
-# sqlite3 is built-in to Python
-# For enhanced database features:
-# sqlalchemy>=1.4.0
-# compress-pickle>=2.1.0
-
 # Optional: For future RAG integration
 # chromadb>=0.4.0
 # sentence-transformers>=2.2.0

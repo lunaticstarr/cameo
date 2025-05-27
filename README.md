@@ -1,6 +1,6 @@
 # CAMEO (Computational Annotation of Model Entities and Ontologies)
 
-A standalone LLM-powered tool for SBML model annotation, following the AMAS workflow with a clean, streamlined interface.
+CAMEO is a LLM-powered system for annotating biosimulation models with standardized ontology terms.
 
 ## Installation
 
@@ -25,9 +25,9 @@ export OPENROUTER_API_KEY="your-openrouter-key"
 
 ## Usage
 
-CAMEO provides two main workflows:
+CAMEO currently provides two main workflows:
 
-### 1. Annotation Workflow (for models without existing annotations)
+### 1. Annotation Workflow (for new models)
 
 For models with no or limited existing annotations. Annotates all species in the model:
 
@@ -60,7 +60,7 @@ For models that already have annotations. Evaluates and improves existing annota
 from cameo.core import curate_model
 
 # Curate existing annotations
-recommendations_df, metrics = curate_model(
+curations_df, metrics = curate_model(
     model_file="path/to/model.xml",
     llm_model="gpt-4o-mini"
 )
@@ -70,7 +70,7 @@ print(f"Accuracy: {metrics['accuracy']:.1%}")
 print(f"Total time: {metrics['total_time']:.2f}s")
 
 # Save results
-recommendations_df.to_csv("curation_results.csv", index=False)
+curations_df.to_csv("curation_results.csv", index=False)
 ```
 
 ### Advanced Usage
@@ -90,18 +90,20 @@ recommendations_df, metrics = annotate_model(
 
 ```python
 # Using "tests/test_models/BIOMD0000000190.xml"
-python examples/simple_annotation_example.py
+python examples/simple_example.py
 ```
 
 ## Workflows
 
 ### Annotation Workflow
+
 - **Purpose**: Annotate models with no or limited existing annotations
 - **Input**: All species in the model
 - **Output**: Annotation recommendations for all species
 - **Metrics**: Accuracy is NA when no existing annotations available
 
-### Curation Workflow  
+### Curation Workflow
+
 - **Purpose**: Evaluate and improve existing annotations
 - **Input**: Only species that already have annotations
 - **Output**: Validation and improvement recommendations
@@ -174,7 +176,7 @@ cameo/
 │   ├── constants.py
 │   ├── evaluation.py 		# functions for evaluation
 ├── examples/
-│   ├── simple_annotation_example.py    # Simple usage demo
+│   ├── simple_example.py    # Simple usage demo
 ├── data/
 │   └── chebi/                   # ChEBI compressed dictionaries
 └── tests/

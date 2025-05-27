@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple CAMEO Annotation Example
+Simple CAMEO Example
 
 Demonstrates the streamlined core interface for annotating models.
 Shows both annotation (for models without annotations) and curation (for models with existing annotations).
